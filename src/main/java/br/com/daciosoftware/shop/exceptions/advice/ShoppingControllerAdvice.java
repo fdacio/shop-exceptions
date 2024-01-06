@@ -9,11 +9,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
+import br.com.daciosoftware.shop.exceptions.ShopNotFoundException;
 import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
 @ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.shopping.controller"})
 public class ShoppingControllerAdvice {
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ShopNotFoundException.class)
+	public ErrorDTO handleUserNotFound(ShopNotFoundException shopNotFoundException) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage("SHOP - Venda não encontrado");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
