@@ -25,7 +25,7 @@ public class ProductControllerAdvice {
 	public ErrorDTO handleProductNotFound(ProductNotFoundException productNotFoundException) {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.NOT_FOUND.value());
-		error.setMessage("SHOP - Produto não encontrado");
+		error.setMessage("Produto não encontrado");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
