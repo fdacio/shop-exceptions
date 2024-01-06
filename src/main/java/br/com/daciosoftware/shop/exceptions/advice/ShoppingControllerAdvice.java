@@ -8,12 +8,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.daciosoftware.shop.exceptions.CategoryNotFoundException;
 import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
+import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
-@ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.product.controller"})
-public class ProductControllerAdvice {
+@ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.shopping.controller"})
+public class ShoppingControllerAdvice {
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(UserNotFoundException.class)
+	public ErrorDTO handleUserNotFound(UserNotFoundException userNotFoundException) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage("SHOP - Usuário não encontrado");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
@@ -22,17 +33,6 @@ public class ProductControllerAdvice {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.NOT_FOUND.value());
 		error.setMessage("SHOP - Produto não encontrado");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-	
-	@ResponseBody
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(CategoryNotFoundException.class)
-	public ErrorDTO handleCategoryNotFount(CategoryNotFoundException categoryNotFoundException) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.NOT_FOUND.value());
-		error.setMessage("Categoria não encontrada");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
