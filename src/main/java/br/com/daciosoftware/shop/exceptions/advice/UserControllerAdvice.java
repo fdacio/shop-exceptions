@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import br.com.daciosoftware.shop.exceptions.InvalidUserKeyException;
 import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
@@ -21,6 +22,17 @@ public class UserControllerAdvice {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.NOT_FOUND.value());
 		error.setMessage("Usuário não encontrado");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(InvalidUserKeyException.class)
+	public ErrorDTO handleProductNotFound(InvalidUserKeyException invalidUserKeyException) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.UNAUTHORIZED.value());
+		error.setMessage("Token Inválido");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
