@@ -2,6 +2,7 @@ package br.com.daciosoftware.shop.exceptions.advice;
 
 import java.time.LocalDateTime;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +34,17 @@ public class UserControllerAdvice {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.UNAUTHORIZED.value());
 		error.setMessage("Token Inválido");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ErrorDTO handleIntegrityViolation(DataIntegrityViolationException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.CONFLICT.value());
+		error.setMessage("Violação de integridade");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}

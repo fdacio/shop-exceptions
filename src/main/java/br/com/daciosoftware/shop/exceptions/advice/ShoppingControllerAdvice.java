@@ -3,10 +3,12 @@ package br.com.daciosoftware.shop.exceptions.advice;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import br.com.daciosoftware.shop.exceptions.InvalidUserKeyException;
 import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
@@ -56,7 +58,29 @@ public class ShoppingControllerAdvice {
 	public ErrorDTO handleProductNotFound(InvalidUserKeyException invalidUserKeyException) {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.UNAUTHORIZED.value());
-		error.setMessage("Token Inválido");
+		error.setMessage("SHOP - Chave do usuário inválida");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ErrorDTO invalidaRequest(MethodArgumentTypeMismatchException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage("SHOP - Requisição inválida");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ErrorDTO invalidaRequest(HttpMessageNotReadableException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage("SHOP - Requisição inválida");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}

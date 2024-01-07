@@ -3,6 +3,7 @@ package br.com.daciosoftware.shop.exceptions.advice;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,9 +17,9 @@ import br.com.daciosoftware.shop.exceptions.CategoryNotFoundException;
 import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
-@ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.product.controller"})
+@ControllerAdvice(basePackages = { "br.com.daciosoftware.shop.product.controller" })
 public class ProductControllerAdvice {
-	
+
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ProductNotFoundException.class)
@@ -29,7 +30,7 @@ public class ProductControllerAdvice {
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
-	
+
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(CategoryNotFoundException.class)
@@ -40,23 +41,34 @@ public class ProductControllerAdvice {
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
-	
+
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ErrorDTO handleValidationError(MethodArgumentNotValidException ex) {
-		
+
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldsErrors = result.getFieldErrors();
 		StringBuilder sb = new StringBuilder("Error de Validação: ");
-		for (FieldError fieldError: fieldsErrors) {
-			sb.append(fieldError.getDefaultMessage()+" ");
+		for (FieldError fieldError : fieldsErrors) {
+			sb.append(fieldError.getDefaultMessage() + " ");
 		}
 		error.setMessage(sb.toString());
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
-	
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ErrorDTO handleIntegrityViolation(DataIntegrityViolationException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.CONFLICT.value());
+		error.setMessage("Violação de integridade");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+
 }
