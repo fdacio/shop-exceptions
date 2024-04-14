@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.daciosoftware.shop.exceptions.InvalidUserKeyException;
+import br.com.daciosoftware.shop.exceptions.UserCpfExistsException;
 import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
@@ -33,6 +34,17 @@ public class UserControllerAdvice {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.UNAUTHORIZED.value());
 		error.setMessage("Token Inválido");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UserCpfExistsException.class)
+	public ErrorDTO MethodValidationException(UserCpfExistsException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage("CPF já existe");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}

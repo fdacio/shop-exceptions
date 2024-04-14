@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.daciosoftware.shop.exceptions.CategoryNotFoundException;
+import br.com.daciosoftware.shop.exceptions.ProductIdentifieViolationException;
 import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 
@@ -33,6 +34,17 @@ public class ProductControllerAdvice {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.NOT_FOUND.value());
 		error.setMessage("Categoria não encontrada");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(ProductIdentifieViolationException.class)
+	public ErrorDTO handleIntegrityViolation(ProductIdentifieViolationException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.CONFLICT.value());
+		error.setMessage("Identificador do produto já existe");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
