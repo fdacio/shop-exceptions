@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
 import br.com.daciosoftware.shop.exceptions.dto.ValidErrorDTO;
 
-@ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.user.controller", "br.com.daciosoftware.shop.product.controller", "br.com.daciosoftware.shop.shopping.controller" })
+@ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.user.controller", "br.com.daciosoftware.shop.product.controller", "br.com.daciosoftware.shop.shopping.controller", "br.com.daciosoftware.shop.modelo*" })
 public class ApplicationControllerAdvice {
 	
 	@ResponseBody

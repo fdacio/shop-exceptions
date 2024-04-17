@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.daciosoftware.shop.exceptions.InvalidUserKeyException;
-import br.com.daciosoftware.shop.exceptions.UserCpfExistsException;
-import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
+import br.com.daciosoftware.shop.exceptions.exceptions.CategoryNotFoundException;
+import br.com.daciosoftware.shop.exceptions.exceptions.InvalidUserKeyException;
+import br.com.daciosoftware.shop.exceptions.exceptions.UserCpfExistsException;
+import br.com.daciosoftware.shop.exceptions.exceptions.UserEmailExistsException;
+import br.com.daciosoftware.shop.exceptions.exceptions.UserNotFoundException;
 
 @ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.user.controller"})
 public class UserControllerAdvice {
@@ -28,6 +30,18 @@ public class UserControllerAdvice {
 	}
 	
 	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(CategoryNotFoundException.class)
+	public ErrorDTO handleCategoryNotFount(CategoryNotFoundException categoryNotFoundException) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage("Categoria dos interesses não encontrada");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+	
+	
+	@ResponseBody
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	@ExceptionHandler(InvalidUserKeyException.class)
 	public ErrorDTO handleProductNotFound(InvalidUserKeyException invalidUserKeyException) {
@@ -41,13 +55,23 @@ public class UserControllerAdvice {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(UserCpfExistsException.class)
-	public ErrorDTO MethodValidationException(UserCpfExistsException ex) {
+	public ErrorDTO handleUserCpfExistesException(UserCpfExistsException ex) {
 		ErrorDTO error = new ErrorDTO();
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setMessage("CPF já existe");
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
-
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UserEmailExistsException.class)
+	public ErrorDTO handleUserEmailExistesException(UserEmailExistsException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage("Email já existe");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
 
 }

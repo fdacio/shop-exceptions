@@ -1,4 +1,4 @@
-package br.com.daciosoftware.shop.exceptions;
+package br.com.daciosoftware.shop.exceptions.exceptions;
 
 public class CategoryNotFoundException extends RuntimeException {
 

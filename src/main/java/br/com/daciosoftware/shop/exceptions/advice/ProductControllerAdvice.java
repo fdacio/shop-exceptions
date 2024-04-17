@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.daciosoftware.shop.exceptions.CategoryNotFoundException;
-import br.com.daciosoftware.shop.exceptions.ProductIdentifieViolationException;
-import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
+import br.com.daciosoftware.shop.exceptions.exceptions.CategoryNotFoundException;
+import br.com.daciosoftware.shop.exceptions.exceptions.ProductIdentifieViolationException;
+import br.com.daciosoftware.shop.exceptions.exceptions.ProductNotFoundException;
 
 @ControllerAdvice(basePackages = { "br.com.daciosoftware.shop.product.controller" })
 public class ProductControllerAdvice {

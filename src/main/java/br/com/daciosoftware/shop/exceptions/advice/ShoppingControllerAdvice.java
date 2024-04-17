@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import br.com.daciosoftware.shop.exceptions.InvalidUserKeyException;
-import br.com.daciosoftware.shop.exceptions.ProductNotFoundException;
-import br.com.daciosoftware.shop.exceptions.ShopNotFoundException;
-import br.com.daciosoftware.shop.exceptions.UserNotFoundException;
 import br.com.daciosoftware.shop.exceptions.dto.ErrorDTO;
+import br.com.daciosoftware.shop.exceptions.exceptions.InvalidUserKeyException;
+import br.com.daciosoftware.shop.exceptions.exceptions.ProductNotFoundException;
+import br.com.daciosoftware.shop.exceptions.exceptions.ShopNotFoundException;
+import br.com.daciosoftware.shop.exceptions.exceptions.UserNotFoundException;
 
 @ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.shopping.controller"})
 public class ShoppingControllerAdvice {
