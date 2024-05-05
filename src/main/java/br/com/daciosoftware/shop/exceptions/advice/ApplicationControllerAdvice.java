@@ -53,6 +53,18 @@ public class ApplicationControllerAdvice {
 		return error;
 	}
 	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ErrorDTO handleValidationError(IllegalArgumentException ex) {
+		ErrorDTO error = new ErrorDTO();
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setMessage("Erro no corpo da requisição");
+		error.setDate(LocalDateTime.now());
+		return error;
+	}
+
+	
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CONFLICT)
