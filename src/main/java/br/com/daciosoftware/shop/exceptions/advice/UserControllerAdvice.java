@@ -18,64 +18,60 @@ import br.com.daciosoftware.shop.exceptions.exceptions.UserNotFoundException;
 @ControllerAdvice(basePackages = {"br.com.daciosoftware.shop.user.controller"})
 public class UserControllerAdvice {
 
-	@ResponseBody
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(UserNotFoundException.class)
-	public ErrorDTO handleUserNotFound(UserNotFoundException userNotFoundException) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.NOT_FOUND.value());
-		error.setMessage("Usuário não encontrado");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-	
-	@ResponseBody
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(CategoryNotFoundException.class)
-	public ErrorDTO handleCategoryNotFount(CategoryNotFoundException categoryNotFoundException) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.NOT_FOUND.value());
-		error.setMessage("Categoria dos interesses não encontrada");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-	
-	
-	@ResponseBody
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	@ExceptionHandler(InvalidUserKeyException.class)
-	public ErrorDTO handleProductNotFound(InvalidUserKeyException invalidUserKeyException) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.UNAUTHORIZED.value());
-		error.setMessage("Token Inválido");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-<<<<<<< HEAD
-	
-	@ResponseBody
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(UserCpfExistsException.class)
-	public ErrorDTO handleUserCpfExistesException(UserCpfExistsException ex) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.BAD_REQUEST.value());
-		error.setMessage("CPF já existe");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-	
-	@ResponseBody
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(UserEmailExistsException.class)
-	public ErrorDTO handleUserEmailExistesException(UserEmailExistsException ex) {
-		ErrorDTO error = new ErrorDTO();
-		error.setStatus(HttpStatus.BAD_REQUEST.value());
-		error.setMessage("Email já existe");
-		error.setDate(LocalDateTime.now());
-		return error;
-	}
-=======
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public ErrorDTO handleUserNotFound(UserNotFoundException userNotFoundException) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage("Usuário não encontrado");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
 
->>>>>>> 9912655a2ae8925a36110384100d2cc933fae2f5
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ErrorDTO handleCategoryNotFount(CategoryNotFoundException categoryNotFoundException) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage("Categoria dos interesses não encontrada");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
+
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidUserKeyException.class)
+    public ErrorDTO handleProductNotFound(InvalidUserKeyException invalidUserKeyException) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.UNAUTHORIZED.value());
+        error.setMessage("Token Inválido");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserCpfExistsException.class)
+    public ErrorDTO handleUserCpfExistesException(UserCpfExistsException ex) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage("CPF já existe");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserEmailExistsException.class)
+    public ErrorDTO handleUserEmailExistesException(UserEmailExistsException ex) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage("Email já existe");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
 
 }
