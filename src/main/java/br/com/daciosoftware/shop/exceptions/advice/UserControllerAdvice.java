@@ -51,6 +51,7 @@ public class UserControllerAdvice {
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
+<<<<<<< HEAD
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -73,5 +74,8 @@ public class UserControllerAdvice {
 		error.setDate(LocalDateTime.now());
 		return error;
 	}
+=======
+
+>>>>>>> 9912655a2ae8925a36110384100d2cc933fae2f5
 
 }
