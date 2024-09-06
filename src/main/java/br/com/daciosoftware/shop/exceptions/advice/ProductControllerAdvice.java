@@ -2,6 +2,7 @@ package br.com.daciosoftware.shop.exceptions.advice;
 
 import java.time.LocalDateTime;
 
+import br.com.daciosoftware.shop.exceptions.exceptions.ReportPdfException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,6 +46,17 @@ public class ProductControllerAdvice {
         ErrorDTO error = new ErrorDTO();
         error.setStatus(HttpStatus.CONFLICT.value());
         error.setMessage("Identificador do produto já existe");
+        error.setDate(LocalDateTime.now());
+        return error;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(ReportPdfException.class)
+    public ErrorDTO handleReportPdf(ReportPdfException ex) {
+        ErrorDTO error = new ErrorDTO();
+        error.setStatus(HttpStatus.NO_CONTENT.value());
+        error.setMessage("Erro ao gerar relatório");
         error.setDate(LocalDateTime.now());
         return error;
     }
